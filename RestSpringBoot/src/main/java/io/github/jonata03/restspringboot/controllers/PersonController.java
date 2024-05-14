@@ -1,0 +1,31 @@
+package io.github.jonata03.restspringboot.controllers;
+
+import io.github.jonata03.restspringboot.converters.NumberConverter;
+import io.github.jonata03.restspringboot.exceptions.UnsupportedMathOperationException;
+import io.github.jonata03.restspringboot.services.PersonServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import static io.github.jonata03.restspringboot.converters.NumberConverter.isNumeric;
+
+@RestController
+@RequestMapping("/person")
+public class PersonController {
+
+    @Autowired
+    private PersonServices service;
+
+    @RequestMapping(value = "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+    public Double sum(
+            @PathVariable(value = "numberOne") String numberOne,
+            @PathVariable(value = "numberTwo") String numberTwo
+    ) throws Exception {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+            throw new UnsupportedMathOperationException("Por favor set um valor numerico!");
+        }
+        return math.sum(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
+    }
+}
