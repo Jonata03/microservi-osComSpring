@@ -1,14 +1,16 @@
 package io.github.jonata03.bookservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.stereotype.Repository;
-
-
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,5 +46,4 @@ public class Book implements Serializable {
 
     @Transient
     private String environment;
-//    book_service?useTimezone=true&serverTimezone=UTC
 }
