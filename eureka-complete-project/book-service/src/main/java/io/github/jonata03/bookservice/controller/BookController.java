@@ -3,6 +3,8 @@ package io.github.jonata03.bookservice.controller;
 import io.github.jonata03.bookservice.model.Book;
 import io.github.jonata03.bookservice.proxy.CambioProxy;
 import io.github.jonata03.bookservice.repository.BookRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Book endpoint")
 @RestController
 @RequestMapping("book-service")
 public class BookController {
@@ -23,9 +26,12 @@ public class BookController {
     @Autowired
     private CambioProxy proxy;
 
+    @Operation(summary = "Ache um livro especifico pelo o ID")
     @GetMapping(value = "/{id}/{currency}")
-    public Book findBook(@PathVariable("id") Long id, @PathVariable("currency") String currency) {
-
+    public Book findBook(
+            @PathVariable("id") Long id,
+            @PathVariable("currency") String currency
+    ) {
         var book = repository.getById(id);
         if (book == null) throw new RuntimeException("livro nao encontrado");
 
