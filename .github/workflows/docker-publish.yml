@@ -7,17 +7,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: log in to Docker Hub
+      - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Setup Java JDK
         uses: actions/setup-java@v2
         with:
           java-version: '21'
-          distribution:  'adopt'
+          distribution: 'adopt'
 
+      # Build and package each microservice
       - name: Build Eureka Naming Server Container Image
         working-directory: ./Dockerizing/naming-server
         run: mvn spring-boot:build-image -DskipTests
@@ -33,6 +35,15 @@ jobs:
       - name: Build Book Microservice Jar
         working-directory: ./Dockerizing/book-service
         run: mvn clean package -DskipTests
+
+      # Ensure JAR files are present before Docker Compose build
+      - name: List files in cambio-service target
+        working-directory: ./Dockerizing/cambio-service
+        run: ls -l target
+
+      - name: List files in book-service target
+        working-directory: ./Dockerizing/book-service
+        run: ls -l target
 
       - name: Docker Compose Build
         working-directory: ./Dockerizing
