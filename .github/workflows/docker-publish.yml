@@ -31,12 +31,12 @@ jobs:
       
       - name: Build cambio microservice jar
         working-directory: ./Dockerizing/cambio-service
-        run: mvn clean package -DskipTests
+        run: mvn spring-boot:build-image -DskipTests
         
       - name: Build book microservice jar
         working-directory: ./Dockerizing/book-service
-        run: mvn clean package -DskipTests
+        run: mvn spring-boot:build-image -DskipTests
      
-      - name: docker compose build
+      - name: Docker Compose Build
         working-directory: ./Dockerizing
         run: docker-compose build
