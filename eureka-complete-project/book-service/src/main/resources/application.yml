@@ -21,6 +21,10 @@ spring:
     default-property-inclusion: non_null
     serialization:
       fail-on-empty-beans: false
+management:
+  tracing:
+    sampling:
+      probability: 1.0
 eureka:
   client:
     service-url:
