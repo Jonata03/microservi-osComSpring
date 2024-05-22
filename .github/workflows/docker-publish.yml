@@ -35,16 +35,7 @@ jobs:
       - name: Build Book Microservice Jar
         working-directory: ./Dockerizing/book-service
         run: mvn clean package -DskipTests
-
-      # Ensure JAR files are present before Docker Compose build
-      - name: List files in cambio-service target
-        working-directory: ./Dockerizing/cambio-service
-        run: ls -l target
-
-      - name: List files in book-service target
-        working-directory: ./Dockerizing/book-service
-        run: ls -l target
-
+        
       - name: Docker Compose Build
-        working-directory: ./Dockerizing
+        working-directory: ./Dockerizing/
         run: docker-compose build
